@@ -81,7 +81,7 @@ quantity.addEventListener("focus", (event)=>{
 })
 quantity.addEventListener("input", (event)=>{
     checkDisabled(event.target.value);
-    event.target.value = "₦" + format(event.target.value);
+    event.target.value = format(event.target.value);
 }
 )
 clear.addEventListener("click", ()=>{
