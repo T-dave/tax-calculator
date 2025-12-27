@@ -4,7 +4,7 @@ const enter = document.querySelector("#calculate-btn");
 const clear = document.querySelector("#clear-btn");
 const label = document.querySelector(".label");
 function format(val){
-    let value = val.replace(/[^\d.]/g, '');
+    let value = val.toString().replace(/[^\d.]/g, '');
     let parts = value.split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.length > 1 ? parts[0] + '.' + parts[1].slice(0, 2) : parts[0];
@@ -81,7 +81,6 @@ quantity.addEventListener("focus", (event)=>{
 })
 quantity.addEventListener("input", (event)=>{
     checkDisabled(event.target.value);
-    event.target.value = format(event.target.value);
 }
 )
 clear.addEventListener("click", ()=>{
