@@ -3,26 +3,15 @@ const quantity = document.querySelector("#quantity");
 const enter = document.querySelector("#calculate-btn");
 const clear = document.querySelector("#clear-btn");
 const label = document.querySelector(".label");
-function money(val){
-    if(isNaN(val)){
-        label.innerText="";
-        return "Invalid Amount";
-    }
-    let amount = val.toString().split("");
-   let balance = [];
-   if(amount.includes(".")){
-    balance = amount.splice(amount.indexOf("."));
-   }
-   let amountArr = amount.join("").toString().split("");
-   for(let x = 0; x < amount.length; x++){
-    if(x % 3 === 0 && x !== 0){
-        amountArr.splice(amount.length-x, 0, ",");
-    }
-   }
-   return "₦" + amountArr.join("") + balance.join("");
+function format(val){
+    let value = val.toString().replace(/[^\d.]/g, '');
+    let parts = value.split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.length > 1 ? parts[0] + '.' + parts[1].slice(0, 2) : parts[0];
 }
+
 function filterMoney(val){
-    const result = +val.split("").filter((n)=>n !== ",").join("");
+    const result = +val.split("").filter((n)=>n !== "," && n !== "₦").join("");
     return result.toFixed(2);
 }
 
@@ -60,7 +49,7 @@ function checkTax(val){
     }
 }
 function updateTax(){
-    tax.innerHTML = money(checkTax(quantity.value));
+    tax.innerHTML = "₦" + format(checkTax(quantity.value));
     // tax.innerHTML = "You owe: ₦" + money(checkTax(quantity.value)) + " from your ₦" + money(filterMoney(quantity.value)) + " income";
     // quantity.value = "";
     quantity.blur();
@@ -92,7 +81,9 @@ quantity.addEventListener("focus", (event)=>{
 })
 quantity.addEventListener("input", (event)=>{
     checkDisabled(event.target.value);
-})
+    event.target.value = "₦" + format(event.target.value);
+}
+)
 clear.addEventListener("click", ()=>{
     tax.innerHTML = "";
     quantity.value = "";
