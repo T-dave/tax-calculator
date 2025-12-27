@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Tax Calculator</h1>
+        
+        <div class="input-group">
+            <label for="quantity">Taxable Income</label>
+            <input id="quantity" name="quantity" placeholder="e.g. 50000">
+        </div>
+
+        <div class="result-area">
+            <span class="label">Estimated Tax:</span>
+            <p id="tax">₦0.00</p>
+        </div>
+
+        <button id="calculate-btn" disabled>Calculate Tax</button>
+        <button id="clear-btn" disabled>Clear</button>
+    </div>
+
+    <script src="tax.js"></script>
+</body>
+</html>
